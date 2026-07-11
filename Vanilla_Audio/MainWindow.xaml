@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vanilla_Audio"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="225" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200*"></ColumnDefinition>
+            <ColumnDefinition Width="400*"></ColumnDefinition>
+            <ColumnDefinition Width="199*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
+        <!-- Pochette de la musique -->
+        <Image Grid.Column="0"></Image>
+
+        <!-- Panel du milieu avec boutons Play, Pause ... -->
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <StackPanel>
+                <Slider></Slider>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Randomize" Width="70"></Button>
+                <Button Content="Skip Backward" Width="70"></Button>
+                <Button Content="Play/Pause" Width="70"></Button>
+                <Button Content="Skip Forward" Width="70"></Button>
+                <Button Content="Loop" Width="70"></Button>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Orientation="Vertical">
+            <ListView Height="163" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Settings"></Button>
+        </StackPanel>
     </Grid>
 </Window>
