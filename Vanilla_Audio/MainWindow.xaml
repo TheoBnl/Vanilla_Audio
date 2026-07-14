@@ -29,6 +29,8 @@
                 <Button Content="Loop" Width="70"></Button>
             </StackPanel>
         </StackPanel>
+        
+        <!-- Panel avec liste des chansons et boutons settings -->
         <StackPanel Grid.Column="2" Orientation="Vertical">
             <ListView Height="163" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListView.View>
@@ -37,7 +39,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Settings"></Button>
+            <Button Content="Settings" Click="OpenSettings_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -40,18 +40,25 @@ namespace Vanilla_Audio
         /// <param name="e"></param>
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
         {
-            SettingWindow settingWindow = new SettingWindow();
-            settingWindow.DataContext = new SettingWindowVM(this.folderPathManager);
-            
-            bool? result = settingWindow.ShowDialog();
-
-            if (result == true)
+            try
             {
-                // Logique si validation : demander au VM d'actualiser les chansons dans la listeView
-                //
-                // TODO
-                //
+                SettingWindow settingWindow = new SettingWindow();
+                settingWindow.DataContext = new SettingWindowVM(this.folderPathManager);
+
+                bool? result = settingWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    // Logique si validation : demander au VM d'actualiser les chansons dans la listeView
+                    //
+                    // TODO
+                    //
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }  
         }
     }
 }
