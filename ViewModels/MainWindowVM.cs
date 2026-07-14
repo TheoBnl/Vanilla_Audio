@@ -11,6 +11,6 @@ namespace ViewModels
     /// </summary>
     public class MainWindowVM
     {
-
+        public MainWindowVM() { }
     }
 }
