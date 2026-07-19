@@ -18,8 +18,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <TextBox Width="200" Margin="5"></TextBox>
-            <Button Content="Browse" Width="100" Margin="5"/>
+            <TextBox x:Name="textBoxDisplayFolderPath" Width="200" Margin="5"></TextBox>
+            <Button Content="Browse" Width="100" Margin="5" Click="ChooseSongFolder_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">

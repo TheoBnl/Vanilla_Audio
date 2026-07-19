@@ -22,5 +22,14 @@ namespace ViewModels
         {
             this.folderPathManager = manager;
         }
+
+        /// <summary>
+        /// Méthode permettant de sauvegarder le chemin du nouveau dossier de chanson
+        /// </summary>
+        /// <param name="folderPath">path du dossier de chanson</param>
+        public void SaveNewFolderPath(string folderPath)
+        {
+            this.folderPathManager.SaveFolderPath(folderPath);
+        }
     }
 }
