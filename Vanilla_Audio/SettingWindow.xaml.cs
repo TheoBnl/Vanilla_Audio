@@ -41,7 +41,6 @@ namespace Vanilla_Audio
             {
                 SettingWindowVM vm = (SettingWindowVM)this.DataContext; //Récupérer le VM via le DataContext, fourni à la création de window
                 vm.SaveNewFolderPath(ofd.FolderName); //On récupère le path et sauvegarde
-                textBoxDisplayFolderPath.Text = ofd.FolderName;
             }
         }
     }

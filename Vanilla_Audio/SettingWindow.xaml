@@ -18,13 +18,12 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <TextBox x:Name="textBoxDisplayFolderPath" Width="200" Margin="5"></TextBox>
+            <TextBox x:Name="textBoxDisplayFolderPath" Text="{Binding FolderPath}" Width="200" Margin="5" IsReadOnly="True"></TextBox>
             <Button Content="Browse" Width="100" Margin="5" Click="ChooseSongFolder_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Cancel" Width="100" Margin="5"/>
-            <Button Content="Confirm" Width="100" Margin="5"/>
+            <Button Content="Close" Width="100" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
