@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Business.Models;
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,14 @@ namespace Tests
         public void TestSaveAndLoadFolderPath()
         {
             if (File.Exists(testJson)) File.Delete(testJson);
-
             FolderPathManager manager = new FolderPathManager(testJson);
             Assert.NotNull(manager);
 
-            string folderPath = "C:/test/songs/";
-            manager.SaveFolderPath(folderPath);
+            SongFolder songFolder = new SongFolder("C:/test/songs/");
+            manager.SaveFolderPath(songFolder);
+            SongFolder loadedFolder = manager.LoadFolderPath();
 
-            Assert.Equal(folderPath, manager.LoadFolderPath());
+            Assert.Equal(songFolder.FolderPath, loadedFolder.FolderPath);
         }
     }
 }

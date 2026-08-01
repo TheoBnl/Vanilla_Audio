@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Business.Models;
+using System;
+using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Data
 {
     /// <summary>
-    /// Classe permettant de sauvegarder et de lire le chemin du dossier de musiques enregistré
+    /// Classe permettant de sauvegarder et de lire le dossier de musiques enregistré
     /// </summary>
     public class FolderPathManager : IFolderPathManager
     {
@@ -17,42 +15,40 @@ namespace Data
         /// <summary>
         /// Constructeur, initialise le nom du fichier de sauvegarde
         /// </summary>
-        /// <param name="jsonFileName">nom du fichier de sauvegarde</param>
-        public FolderPathManager(string fileName) 
-        { 
+        /// <param name="fileName">nom du fichier de sauvegarde</param>
+        public FolderPathManager(string fileName)
+        {
             this.fileName = fileName;
         }
 
-        public string LoadFolderPath()
+        public SongFolder LoadFolderPath()
         {
-            string folderPath = string.Empty;
-
+            SongFolder songFolder = null;
             try
             {
-                if(File.Exists(this.fileName))
+                if (File.Exists(this.fileName))
                 {
                     string jsonString = File.ReadAllText(this.fileName);
-                    folderPath = JsonSerializer.Deserialize<string>(jsonString);
+                    songFolder = JsonSerializer.Deserialize<SongFolder>(jsonString);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception("Failed to load song folder path", ex);
+                throw new Exception("Failed to load song folder", ex);
             }
-
-            return folderPath;
+            return songFolder;
         }
 
-        public void SaveFolderPath(string folderPath)
+        public void SaveFolderPath(SongFolder songFolder)
         {
             try
             {
-                string jsonString = JsonSerializer.Serialize(folderPath);
+                string jsonString = JsonSerializer.Serialize(songFolder);
                 File.WriteAllText(this.fileName, jsonString);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception("Failed to save song folder path", ex);
+                throw new Exception("Failed to save song folder", ex);
             }
         }
     }
