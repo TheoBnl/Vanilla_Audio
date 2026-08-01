@@ -12,7 +12,6 @@ namespace Tests
     public class FolderPathManagerTest
     {
         private string testJson = "test_folderPath.json";
-
         [Fact]
         public void TestSaveAndLoadFolderPath()
         {
@@ -20,11 +19,22 @@ namespace Tests
             FolderPathManager manager = new FolderPathManager(testJson);
             Assert.NotNull(manager);
 
-            SongFolder songFolder = new SongFolder("C:/test/songs/");
-            manager.SaveFolderPath(songFolder);
-            SongFolder loadedFolder = manager.LoadFolderPath();
+            string folderPath = "C:/test/songs/";
+            manager.SaveFolderPath(folderPath);
+            string loadedFolderPath = manager.LoadFolderPath();
 
-            Assert.Equal(songFolder.FolderPath, loadedFolder.FolderPath);
+            Assert.Equal(folderPath, loadedFolderPath);
+        }
+
+        [Fact]
+        public void TestLoadFolderPath_FileDoesNotExist_ReturnsEmptyString()
+        {
+            if (File.Exists(testJson)) File.Delete(testJson);
+            FolderPathManager manager = new FolderPathManager(testJson);
+
+            string loadedFolderPath = manager.LoadFolderPath();
+
+            Assert.Equal(string.Empty, loadedFolderPath);
         }
     }
 }

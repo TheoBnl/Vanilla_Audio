@@ -17,11 +17,11 @@ namespace Data
         /// Méthode permettant de charger le path du dossier sauvegardé
         /// </summary>
         /// <returns>chemin vers le dossier contenant les musiques</returns>
-        public SongFolder LoadFolderPath();
+        public string LoadFolderPath();
 
         /// <summary>
         /// Méthode permettant de sauvegarder le path du dossier de musiques
         /// </summary>
-        public void SaveFolderPath(SongFolder songFolder);
+        public void SaveFolderPath(string songFolder);
     }
 }

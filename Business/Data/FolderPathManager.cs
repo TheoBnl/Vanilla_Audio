@@ -21,28 +21,33 @@ namespace Data
             this.fileName = fileName;
         }
 
-        public SongFolder LoadFolderPath()
+        public string LoadFolderPath()
         {
-            SongFolder songFolder = null;
+            string folderPath = string.Empty;
             try
             {
                 if (File.Exists(this.fileName))
                 {
                     string jsonString = File.ReadAllText(this.fileName);
-                    songFolder = JsonSerializer.Deserialize<SongFolder>(jsonString);
+                    if(!string.IsNullOrWhiteSpace(jsonString))
+                    {
+                        SongFolder songFolder = JsonSerializer.Deserialize<SongFolder>(jsonString);
+                        folderPath = songFolder.FolderPath ?? string.Empty;
+                    } 
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to load song folder", ex);
+                throw new Exception("Failed to load song folder path", ex);
             }
-            return songFolder;
+            return folderPath;
         }
 
-        public void SaveFolderPath(SongFolder songFolder)
+        public void SaveFolderPath(string songFolderPath)
         {
             try
             {
+                SongFolder songFolder = new SongFolder(songFolderPath);
                 string jsonString = JsonSerializer.Serialize(songFolder);
                 File.WriteAllText(this.fileName, jsonString);
             }
