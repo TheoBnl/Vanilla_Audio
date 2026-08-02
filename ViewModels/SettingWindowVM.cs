@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ViewModels
 {
     /// <summary>
-    /// VM de la fenêtre de paramètre
+    /// VM of the settings window
     /// </summary>
     public class SettingWindowVM : INotifyPropertyChanged
     {
@@ -20,9 +20,9 @@ namespace ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        /// Constructeur, injection du folderPathManager
+        /// Constructor, get the current FolderPath if it exist
         /// </summary>
-        /// <param name="manager"></param>
+        /// <param name="manager">Folder path manager to use</param>
         public SettingWindowVM(IFolderPathManager manager) 
         {
             this.folderPathManager = manager;
@@ -30,11 +30,10 @@ namespace ViewModels
         }
 
         /// <summary>
-        /// Méthode permettant de sauvegarder le chemin du nouveau dossier de chanson
+        /// Method using the folderPathManager to save the path of the new selected directory
         /// </summary>
         public void SaveNewFolderPath(string path)
         {
-            this.FolderPath = path;
             this.folderPathManager.SaveFolderPath(this.folderPath);
         }
 
