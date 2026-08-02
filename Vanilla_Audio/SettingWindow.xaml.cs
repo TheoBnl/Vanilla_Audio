@@ -1,4 +1,5 @@
 ﻿using Data;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,23 @@ namespace Vanilla_Audio
         public SettingWindow()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Evenement, ouverture d'un folder dialog pour sélectionner le dossier des chansons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChooseSongFolder_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFolderDialog ofd = new OpenFolderDialog();
+            bool? result = ofd.ShowDialog();
+            
+            if(result == true)
+            {
+                SettingWindowVM vm = (SettingWindowVM)this.DataContext; //Récupérer le VM via le DataContext, fourni à la création de window
+                vm.SaveNewFolderPath(ofd.FolderName); //On récupère le path et sauvegarde
+            }
         }
     }
 }

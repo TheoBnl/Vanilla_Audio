@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,6 @@ namespace Data
         /// <summary>
         /// Méthode permettant de sauvegarder le path du dossier de musiques
         /// </summary>
-        public void SaveFolderPath(string folderPath);
+        public void SaveFolderPath(string songFolder);
     }
 }
