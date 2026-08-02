@@ -29,7 +29,6 @@ namespace Vanilla_Audio
         {
             InitializeComponent();
             this.folderPathManager = new FolderPathManager("folderPath.json");
-            this.mainWindowVM = new MainWindowVM();
             this.DataContext = mainWindowVM;
         }
 
@@ -50,7 +49,7 @@ namespace Vanilla_Audio
                 if (result == true)
                 {
                     // Logique si validation : demander au VM d'actualiser les chansons dans la listeView
-                    //
+                    // A VOIR AVEC OBSERVABLE COLLECTION
                     // TODO
                     //
                 }
