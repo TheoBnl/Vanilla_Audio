@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace Business.Models
 {
+    /// <summary>
+    /// Model object Song, contain Song's tags and filepath
+    /// </summary>
     public class Song
     {
-        private string name;
-        private long duration;
-        private Byte[] cover;
-
-        public Song(string name, long duration)
-        {
-            this.name = name;
-            this.duration = duration;
-            this.cover = cover;
-        }
+        public string Title {get; set;}
+        public TimeSpan Duration { get; set; }
+        public string Artist { get; set; }
+        public byte[] Cover { get; set; }
+        public string Path { get; set; }
     }
 }
