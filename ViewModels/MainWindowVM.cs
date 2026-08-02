@@ -18,10 +18,23 @@ namespace ViewModels
     public class MainWindowVM : INotifyPropertyChanged
     {
         private IFolderPathManager folderPathManager;
-        private SongManager songManager;
+        private ISongManager songManager;
         private ObservableCollection<Song> songs;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Constructor, dependencies injection of the folderPathManager and songManager
+        /// </summary>
+        /// <param name="folderPathManager">manager of dolderPath</param>
+        /// <param name="songManager">manager of songs</param>
+        public MainWindowVM(IFolderPathManager folderPathManager, ISongManager songManager)
+        {
+            this.folderPathManager = folderPathManager;
+            this.songManager = songManager;
+
+            this.ReloadSongs();
+        }
 
         /// <summary>
         /// Property, managing observable collection containing all songs
@@ -37,14 +50,12 @@ namespace ViewModels
         }
 
         /// <summary>
-        /// Constructor, dependencies injection of the folderPathManager and songManager
+        /// Reload Songs when loading or changing the song's directory
         /// </summary>
-        /// <param name="folderPathManager">manager of dolderPath</param>
-        /// <param name="songManager">manager of songs</param>
-        public MainWindowVM(IFolderPathManager folderPathManager, SongManager songManager)
+        public void ReloadSongs()
         {
-            this.folderPathManager = folderPathManager;
-            this.songManager = songManager;
+            string folderPath = this.folderPathManager.LoadFolderPath();
+            this.Songs = new ObservableCollection<Song>(this.songManager.CreateSongListFromDirectory(folderPath));
         }
 
         /// <summary>
