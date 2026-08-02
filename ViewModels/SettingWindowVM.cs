@@ -52,9 +52,9 @@ namespace ViewModels
         }
 
         /// <summary>
-        /// Property changed observer
+        /// Property, notify when there is a change in the called property
         /// </summary>
-        /// <param name="propertyName"></param>
+        /// <param name="propertyName">name of the property that notify</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
