@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vanilla_Audio"
+        xmlns:converters="clr-namespace:Vanilla_Audio.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="225" Width="800">
+
+    <Window.Resources>
+        <converters:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*"></ColumnDefinition>
@@ -32,12 +38,18 @@
         
         <!-- Panel avec liste des chansons et boutons settings -->
         <StackPanel Grid.Column="2" Orientation="Vertical">
-            <ListView Height="163" d:ItemsSource="{d:SampleData ItemCount=5}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
+            <ListView Height="163" ItemsSource="{Binding Songs}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <Image Width="40" Height="40" Source="{Binding Cover, Converter={StaticResource ByteArrayToImageConverter}}"/>
+                            <StackPanel Orientation="Vertical" Margin="8,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Duration, StringFormat=mm\\:ss}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
             <Button Content="Settings" Click="OpenSettings_Click"></Button>
         </StackPanel>
