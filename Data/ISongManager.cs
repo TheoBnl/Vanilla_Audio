@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Data
+namespace Data
 {
     /// <summary>
     /// Interface defining A song manager
