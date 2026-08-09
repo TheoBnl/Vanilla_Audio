@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,7 +19,7 @@ using ViewModels;
 namespace Vanilla_Audio
 {
     /// <summary>
-    /// Logique d'interaction pour SettingWindow.xaml
+    /// Interaction logic for SettingWindow.xaml
     /// </summary>
     public partial class SettingWindow : Window
     {
@@ -28,7 +29,7 @@ namespace Vanilla_Audio
         }
 
         /// <summary>
-        /// Evenement, ouverture d'un folder dialog pour sélectionner le dossier des chansons
+        /// Event, open a folder dialog to select the song's folder
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -36,12 +37,20 @@ namespace Vanilla_Audio
         {
             OpenFolderDialog ofd = new OpenFolderDialog();
             bool? result = ofd.ShowDialog();
-            
-            if(result == true)
+
+            if (result == true)
             {
-                SettingWindowVM vm = (SettingWindowVM)this.DataContext; //Récupérer le VM via le DataContext, fourni à la création de window
-                vm.SaveNewFolderPath(ofd.FolderName); //On récupère le path et sauvegarde
+                SettingWindowVM vm = (SettingWindowVM)this.DataContext;
+                vm.FolderPath = ofd.FolderName; // update the property for the display (no saving)
             }
+        }
+
+        private void ValidateSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingWindowVM vm = (SettingWindowVM)this.DataContext;//Get VM via DataContext from the construction of the window
+            vm.SaveNewFolderPath(vm.FolderPath); //Get path and save it
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

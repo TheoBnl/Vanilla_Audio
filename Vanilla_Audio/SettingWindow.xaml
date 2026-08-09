@@ -23,7 +23,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Close" Width="100" Margin="5"/>
+            <Button Content="Validate" Width="100" Margin="5" Click="ValidateSettings_Click"/>
         </StackPanel>
     </Grid>
 </Window>

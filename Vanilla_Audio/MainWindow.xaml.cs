@@ -18,18 +18,17 @@ namespace Vanilla_Audio
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowVM mainWindowVM;
         private IFolderPathManager folderPathManager;
 
         /// <summary>
         /// Constructeur de la mainWindow, initialise le fichier de sauv egarde du chemin du dossier
         /// de chansons, créé son VM et l'affecte à son DataContext
         /// </summary>
-        public MainWindow()
+        public MainWindow(MainWindowVM mainWindowVM, IFolderPathManager folderPathManager)
         {
             InitializeComponent();
-            this.folderPathManager = new FolderPathManager("folderPath.json");
             this.DataContext = mainWindowVM;
+            this.folderPathManager = folderPathManager;
         }
 
         /// <summary>
@@ -48,10 +47,8 @@ namespace Vanilla_Audio
 
                 if (result == true)
                 {
-                    // Logique si validation : demander au VM d'actualiser les chansons dans la listeView
-                    // A VOIR AVEC OBSERVABLE COLLECTION
-                    // TODO
-                    //
+                    MainWindowVM vm = (MainWindowVM)this.DataContext;
+                    vm.ReloadSongs();
                 }
             }
             catch (Exception ex)
