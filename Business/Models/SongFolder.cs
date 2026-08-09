@@ -30,6 +30,10 @@ namespace Business.Models
         /// <summary>
         /// Property, manage the folder's path
         /// </summary>
-        public string FolderPath { get => folderPath; set => folderPath = value; }
+        public string FolderPath 
+        { 
+            get => folderPath; 
+            set => folderPath = value; 
+        }
     }
 }
