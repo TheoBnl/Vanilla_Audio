@@ -1,4 +1,5 @@
-﻿using Business.Data;
+﻿using Business;
+using Business.Data;
 using Business.Models;
 using Data;
 using System;
@@ -19,6 +20,7 @@ namespace ViewModels
     {
         private IFolderPathManager folderPathManager;
         private ISongManager songManager;
+        private IPlayer player;
         private ObservableCollection<Song> songs;
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -28,10 +30,11 @@ namespace ViewModels
         /// </summary>
         /// <param name="folderPathManager">manager of dolderPath</param>
         /// <param name="songManager">manager of songs</param>
-        public MainWindowVM(IFolderPathManager folderPathManager, ISongManager songManager)
+        public MainWindowVM(IFolderPathManager folderPathManager, ISongManager songManager, IPlayer player)
         {
             this.folderPathManager = folderPathManager;
             this.songManager = songManager;
+            this.player = player;
 
             this.ReloadSongs();
         }
