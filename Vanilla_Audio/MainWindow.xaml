@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Pochette de la musique -->
-        <Image Grid.Column="0"></Image>
+        <Image Grid.Column="0" Source="{Binding CurrentSongCover, Converter={StaticResource ByteArrayToImageConverter}}"></Image>
 
         <!-- Panel du milieu avec boutons Play, Pause ... -->
         <StackPanel Grid.Column="1" Orientation="Vertical">
@@ -38,7 +38,7 @@
         
         <!-- Panel avec liste des chansons et boutons settings -->
         <StackPanel Grid.Column="2" Orientation="Vertical">
-            <ListView Height="163" ItemsSource="{Binding Songs}">
+            <ListView x:Name="listViewSongs" Height="163" ItemsSource="{Binding Songs}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="4">
