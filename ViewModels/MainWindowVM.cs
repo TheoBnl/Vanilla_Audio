@@ -1,7 +1,6 @@
 ﻿using Business;
-using Business.Data;
 using Business.Models;
-using Data;
+using System.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Data;
 
 namespace ViewModels
 {
@@ -68,6 +68,27 @@ namespace ViewModels
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Property, expose the song cover to display it in the mainWindow
+        /// </summary>
+        public byte[]? CurrentSongCover => this.player.CurrentSong?.Cover;
+
+        /// <summary>
+        /// Property, expose if a song is currently playing
+        /// </summary>
+        public bool IsPlaying => this.player.IsPlaying;
+
+        /// <summary>
+        /// Method using passing a song from the ListView to play using the player,
+        /// notify to refresh the song cover
+        /// </summary>
+        /// <param name="song">song to play</param>
+        public void PlaySelectedSong(Song song)
+        {
+            this.player.Play(song);
+            OnPropertyChanged(nameof(CurrentSongCover));
         }
     }
 }
