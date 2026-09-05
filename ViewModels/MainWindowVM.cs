@@ -36,6 +36,8 @@ namespace ViewModels
             this.songManager = songManager;
             this.player = player;
 
+            this.player.SongEnded += OnSongEnded;
+
             this.ReloadSongs();
         }
 
@@ -161,6 +163,16 @@ namespace ViewModels
                 OnPropertyChanged(nameof(CurrentSongCover));
                 OnPropertyChanged(nameof(CurrentSongTitle));
             }
+        }
+
+        /// <summary>
+        /// Method called when a song end to skip to the next one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSongEnded(object? sender, EventArgs e)
+        {
+            this.SkipForward();
         }
     }
 }
