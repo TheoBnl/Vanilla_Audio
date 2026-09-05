@@ -1,4 +1,4 @@
-﻿using Business.Data;
+﻿using Business;
 using Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,11 +21,12 @@ namespace Vanilla_Audio
             this.host = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<IFolderPathManager>(sp => new FolderPathManager("folderPath.json"));
-                    services.AddSingleton<ITagManager, TagLibSharpManager>();
-                    services.AddSingleton<ISongManager, SongManager>();
-                    services.AddSingleton<MainWindowVM>();
-                    services.AddSingleton<MainWindow>();
+                    services.AddScoped<IFolderPathManager>(sp => new FolderPathManager("folderPath.json"));
+                    services.AddScoped<ITagManager, TagLibSharpManager>();
+                    services.AddScoped<ISongManager, SongManager>();
+                    services.AddScoped<IPlayer, NAudioPlayer>();
+                    services.AddScoped<MainWindowVM>();
+                    services.AddScoped<MainWindow>();
                 })
                 .Build();
 

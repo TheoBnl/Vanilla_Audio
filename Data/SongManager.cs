@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 
-namespace Business.Data
+namespace Data
 {
     /// <summary>
     /// Class managing Song object creation
@@ -30,21 +30,25 @@ namespace Business.Data
         public List<Song> CreateSongListFromDirectory(string directoryPath)
         {
             List<Song> songsList = new List<Song>();
-            List<string> filesPath = new List<string>();
 
-            foreach (string extension in this.extensions)
+            if (!string.IsNullOrWhiteSpace(directoryPath) && Directory.Exists(directoryPath))
             {
-                filesPath.AddRange(Directory.GetFiles(directoryPath, extension));
-            }
+                List<string> filesPath = new List<string>();
 
-            foreach (string path in filesPath)
-            {
-                Song song = new Song();
-                song.Path = path;
+                foreach (string extension in this.extensions)
+                {
+                    filesPath.AddRange(Directory.GetFiles(directoryPath, extension));
+                }
 
-                this.tagManager.FetchTagsAndAddToSong(song);
+                foreach (string path in filesPath)
+                {
+                    Song song = new Song();
+                    song.Path = path;
 
-                songsList.Add(song);
+                    this.tagManager.FetchTagsAndAddToSong(song);
+
+                    songsList.Add(song);
+                }
             }
 
             return songsList;
