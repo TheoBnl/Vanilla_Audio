@@ -17,12 +17,13 @@ namespace Business
     {
         private Song? currentSong;
         public bool IsPlaying { get; private set; }
-        public float Volume { get; set; }
+        private float volume;
         private bool isChangingSong;
 
         private WaveOut? outputDevice;
         private AudioFileReader? audioFileReader;
         private bool closing = false;
+        private bool loop;
 
         public event EventHandler SongEnded;
 
@@ -34,6 +35,7 @@ namespace Business
             this.isChangingSong = false;
             this.outputDevice = null;
             this.audioFileReader = null;
+            this.loop = false;
         }
 
         public Song? CurrentSong => currentSong;
@@ -98,6 +100,32 @@ namespace Business
             }
         }
 
+        /// <summary>
+        /// Property, adjust the volume, if a audioFileReader is inited, set the song volume of the reader
+        /// </summary>
+        public float Volume
+        {
+            set
+            {
+                this.volume = value;
+                if(this.audioFileReader != null)
+                {
+                    this.audioFileReader.Volume = this.volume;
+                }
+            }
+
+            get
+            {
+                return this.volume;
+            }
+        }
+
+        //public bool Loop
+        //{
+        //    set => this.loop = value; //TO DO 
+        //    get => this.loop; 
+        //}
+
         public void Randomize()
         {
             throw new NotImplementedException();
@@ -117,7 +145,8 @@ namespace Business
             if(!this.isChangingSong)
             {
                 this.IsPlaying = false;
+                SongEnded?.Invoke(this, EventArgs.Empty); //trigger SongEnded event when changing song, used to auto skip to next when song's end
             } 
-        }
+        }    
     }
 }

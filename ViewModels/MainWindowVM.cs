@@ -36,6 +36,8 @@ namespace ViewModels
             this.songManager = songManager;
             this.player = player;
 
+            this.player.SongEnded += OnSongEnded;
+
             this.ReloadSongs();
         }
 
@@ -76,9 +78,29 @@ namespace ViewModels
         public byte[]? CurrentSongCover => this.player.CurrentSong?.Cover;
 
         /// <summary>
+        /// Property, expose the song name to display it in the mainWindow
+        /// </summary>
+        public string? CurrentSongTitle => this.player.CurrentSong?.Title;
+
+        /// <summary>
+        /// Property, expose the song artist to display it in the mainWindow
+        /// </summary>
+        public string? CurrentSongArtist => this.player.CurrentSong?.Artist;
+
+        /// <summary>
         /// Property, expose if a song is currently playing
         /// </summary>
         public bool IsPlaying => this.player.IsPlaying;
+
+        /// <summary>
+        /// Notify and update all UI component when song changed
+        /// </summary>
+        private void NotifyCurrentSongChanged()
+        {
+            OnPropertyChanged(nameof(CurrentSongCover));
+            OnPropertyChanged(nameof(CurrentSongTitle));
+            OnPropertyChanged(nameof(CurrentSongArtist));
+        }
 
         /// <summary>
         /// Method using passing a song from the ListView to play using the player,
@@ -88,7 +110,8 @@ namespace ViewModels
         public void PlaySelectedSong(Song song)
         {
             this.player.Play(song);
-            OnPropertyChanged(nameof(CurrentSongCover));
+
+            this.NotifyCurrentSongChanged();
         }
 
         /// <summary>
@@ -97,6 +120,71 @@ namespace ViewModels
         public void PauseOrResumeCurrentSong()
         {
             this.player.PauseOrResume();
+        }
+
+        /// <summary>
+        /// Property, expose the Volume of the player, used to change volume with volumeSlider
+        /// </summary>
+        public float Volume
+        {
+            get => this.player.Volume;
+            set
+            {
+                this.player.Volume = value;
+                OnPropertyChanged(nameof(Volume));
+            }
+        }
+
+        /// <summary>
+        /// Skip to the next song in the list
+        /// </summary>
+        public void SkipForward()
+        {
+            if (this.player.CurrentSong != null)
+            {
+                int currentIndex = this.Songs.IndexOf(this.player.CurrentSong);
+                if (currentIndex >= 0 && currentIndex + 1 < this.Songs.Count) //check if its not the last item
+                {
+                    this.player.Play(this.Songs[currentIndex + 1]);
+                }
+                else
+                {
+                    this.player.Play(this.Songs.First());
+                }
+
+                this.NotifyCurrentSongChanged();
+            }
+        }
+
+        /// <summary>
+        /// Skip to the previous song in the list
+        /// </summary>
+        public void SkipBackward()
+        {
+            if (this.player.CurrentSong != null)
+            {
+                int currentIndex = this.Songs.IndexOf(this.player.CurrentSong);
+                if (currentIndex > 0) //if its not the first song
+                {
+                    this.player.Play(this.Songs[currentIndex - 1]);
+                }
+                else //Play the first song again if current song is the first of the list
+                {
+                    this.player.Play(this.Songs.First());
+                }
+
+                this.NotifyCurrentSongChanged();
+            }
+        }
+
+        /// <summary>
+        /// Method called when a song end to skip to the next one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSongEnded(object? sender, EventArgs e)
+        {
+            this.SkipForward();
         }
     }
 }

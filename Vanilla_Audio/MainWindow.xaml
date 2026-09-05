@@ -29,11 +29,15 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Randomize" Width="70"></Button>
-                <Button Content="Skip Backward" Width="70"></Button>
+                <Button Content="Skip Backward" Width="70" Click="SkipBackward_Click"></Button>
                 <Button Content="Play/Pause" Width="70" Click="PlayPause_Click"></Button>
-                <Button Content="Skip Forward" Width="70"></Button>
+                <Button Content="Skip Forward" Width="70" Click="SkipForward_Click"></Button>
                 <Button Content="Loop" Width="70"></Button>
             </StackPanel>
+            <Slider x:Name="sliderVolume" Width="189" Minimum="0" Maximum="1" Value="{Binding Volume, Mode=TwoWay}"/>
+            <Label Content="{Binding Volume}"/>
+            <Label Content="{Binding CurrentSongTitle}"/>
+            <Label Content="{Binding CurrentSongArtist}"/>
         </StackPanel>
         
         <!-- Panel avec liste des chansons et boutons settings -->
