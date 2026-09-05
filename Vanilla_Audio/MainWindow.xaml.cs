@@ -14,8 +14,8 @@ namespace Vanilla_Audio
         private IFolderPathManager folderPathManager;
 
         /// <summary>
-        /// Constructeur de la mainWindow, initialise le fichier de sauv egarde du chemin du dossier
-        /// de chansons, créé son VM et l'affecte à son DataContext
+        /// Constructor of the mainWindow, init the file saving the folder path
+        /// create the VM and init its DataContext
         /// </summary>
         public MainWindow(MainWindowVM mainWindowVM, IFolderPathManager folderPathManager)
         {
@@ -27,7 +27,7 @@ namespace Vanilla_Audio
         }
 
         /// <summary>
-        /// Evenement permettant d'ouvrir le menu de paramètre de l'application (chemin du dossier etc)
+        /// Event opening the settings menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -52,12 +52,28 @@ namespace Vanilla_Audio
             }
         }
 
+        /// <summary>
+        /// Event Playing the selected song when clicking on an item from the ListView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlaySelectedSong(object sender, SelectionChangedEventArgs e)
         {
             Song selectedSong = (Song)((ListView)sender).SelectedItem;
 
             MainWindowVM vm = (MainWindowVM)this.DataContext;
             vm.PlaySelectedSong(selectedSong);
+        }
+
+        /// <summary>
+        /// Event Playing or Pausing the current selected song
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlayPause_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowVM vm = (MainWindowVM)this.DataContext;
+            vm.PauseOrResumeCurrentSong();
         }
     }
 }
