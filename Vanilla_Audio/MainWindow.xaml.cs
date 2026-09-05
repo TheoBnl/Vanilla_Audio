@@ -75,5 +75,11 @@ namespace Vanilla_Audio
             MainWindowVM vm = (MainWindowVM)this.DataContext;
             vm.PauseOrResumeCurrentSong();
         }
+
+        private void SkipForward_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowVM vm = (MainWindowVM)this.DataContext;
+            vm.SkipForward();
+        }
     }
 }

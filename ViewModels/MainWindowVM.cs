@@ -111,5 +111,26 @@ namespace ViewModels
                 OnPropertyChanged(nameof(Volume));
             }
         }
+
+        /// <summary>
+        /// Skip to the next song in the list
+        /// </summary>
+        public void SkipForward()
+        {
+            if (this.player.CurrentSong != null)
+            {
+                int currentIndex = this.Songs.IndexOf(this.player.CurrentSong);
+                if (currentIndex >= 0 && currentIndex + 1 < this.Songs.Count) //check if its not the last item
+                {
+                    this.player.Play(this.Songs[currentIndex + 1]);
+                }
+                else
+                {
+                    this.player.Play(this.Songs.First());
+                }
+
+                OnPropertyChanged(nameof(CurrentSongCover));
+            }
+        }
     }
 }
