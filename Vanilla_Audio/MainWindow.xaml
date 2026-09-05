@@ -34,6 +34,7 @@
                 <Button Content="Skip Forward" Width="70"></Button>
                 <Button Content="Loop" Width="70"></Button>
             </StackPanel>
+            <Slider x:Name="sliderVolume" Width="120" Minimum="0" Maximum="1" Value="{Binding Volume, Mode=TwoWay}"/>
         </StackPanel>
         
         <!-- Panel avec liste des chansons et boutons settings -->
