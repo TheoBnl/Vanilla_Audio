@@ -76,10 +76,26 @@ namespace Vanilla_Audio
             vm.PauseOrResumeCurrentSong();
         }
 
+        /// <summary>
+        /// Event, skip to the next song when clicking on Skip forward button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SkipForward_Click(object sender, RoutedEventArgs e)
         {
             MainWindowVM vm = (MainWindowVM)this.DataContext;
             vm.SkipForward();
+        }
+
+        /// <summary>
+        /// Event, skip to the previous song when clicking on Skip backward button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SkipBackward_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowVM vm = (MainWindowVM)this.DataContext;
+            vm.SkipBackward();
         }
     }
 }
