@@ -68,21 +68,37 @@ namespace Business
         {
             if(this.IsPlaying)
             {
-                this.IsPlaying = false;
-                //TODO
+                this.Pause();
+                this.IsPlaying = false;    
             }
             else
             {
-                //TODO
+                if (this.currentSong != null && IsPlaying == false) //if a song isnt selected yet
+                {
+                    this.Resume();
+                    this.IsPlaying = true;  
+                }
+            }
+        }
+
+        public void Resume()
+        {
+            if (outputDevice != null)
+            {
+                this.outputDevice.Play();
+                this.IsPlaying = true;
+            }
+        }
+
+        public void Pause()
+        {
+            if (outputDevice != null && IsPlaying)
+            {
+                outputDevice.Pause();
             }
         }
 
         public void Randomize()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Stop()
         {
             throw new NotImplementedException();
         }

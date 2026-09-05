@@ -40,10 +40,20 @@ namespace Business
         public void Play(Song song);
 
         /// <summary>
-        /// Pause or resume the song
+        /// Pause or resume the current selected song
         /// </summary>
         public void PauseOrResume();
-        public void Stop();
+        
+        /// <summary>
+        /// Pause the current song
+        /// </summary>
+        public void Pause();
+
+        /// <summary>
+        /// Resume the current selected song if its currently paused
+        /// </summary>
+        public void Resume();
+
         public void Randomize();
     }
 }
