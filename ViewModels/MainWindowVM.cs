@@ -83,9 +83,24 @@ namespace ViewModels
         public string? CurrentSongTitle => this.player.CurrentSong?.Title;
 
         /// <summary>
+        /// Property, expose the song artist to display it in the mainWindow
+        /// </summary>
+        public string? CurrentSongArtist => this.player.CurrentSong?.Artist;
+
+        /// <summary>
         /// Property, expose if a song is currently playing
         /// </summary>
         public bool IsPlaying => this.player.IsPlaying;
+
+        /// <summary>
+        /// Notify and update all UI component when song changed
+        /// </summary>
+        private void NotifyCurrentSongChanged()
+        {
+            OnPropertyChanged(nameof(CurrentSongCover));
+            OnPropertyChanged(nameof(CurrentSongTitle));
+            OnPropertyChanged(nameof(CurrentSongArtist));
+        }
 
         /// <summary>
         /// Method using passing a song from the ListView to play using the player,
@@ -96,8 +111,7 @@ namespace ViewModels
         {
             this.player.Play(song);
 
-            OnPropertyChanged(nameof(CurrentSongCover));
-            OnPropertyChanged(nameof(CurrentSongTitle));
+            this.NotifyCurrentSongChanged();
         }
 
         /// <summary>
@@ -138,8 +152,7 @@ namespace ViewModels
                     this.player.Play(this.Songs.First());
                 }
 
-                OnPropertyChanged(nameof(CurrentSongCover));
-                OnPropertyChanged(nameof(CurrentSongTitle));
+                this.NotifyCurrentSongChanged();
             }
         }
 
@@ -160,8 +173,7 @@ namespace ViewModels
                     this.player.Play(this.Songs.First());
                 }
 
-                OnPropertyChanged(nameof(CurrentSongCover));
-                OnPropertyChanged(nameof(CurrentSongTitle));
+                this.NotifyCurrentSongChanged();
             }
         }
 

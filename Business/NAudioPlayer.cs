@@ -147,8 +147,6 @@ namespace Business
                 this.IsPlaying = false;
                 SongEnded?.Invoke(this, EventArgs.Empty); //trigger SongEnded event when changing song, used to auto skip to next when song's end
             } 
-        }
-
-        
+        }    
     }
 }

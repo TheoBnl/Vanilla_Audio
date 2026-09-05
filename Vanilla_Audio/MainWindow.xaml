@@ -37,7 +37,7 @@
             <Slider x:Name="sliderVolume" Width="189" Minimum="0" Maximum="1" Value="{Binding Volume, Mode=TwoWay}"/>
             <Label Content="{Binding Volume}"/>
             <Label Content="{Binding CurrentSongTitle}"/>
-            
+            <Label Content="{Binding CurrentSongArtist}"/>
         </StackPanel>
         
         <!-- Panel avec liste des chansons et boutons settings -->
