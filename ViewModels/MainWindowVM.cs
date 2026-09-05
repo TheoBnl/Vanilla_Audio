@@ -98,5 +98,18 @@ namespace ViewModels
         {
             this.player.PauseOrResume();
         }
+
+        /// <summary>
+        /// Property, expose the Volume of the player, used to change volume with volumeSlider
+        /// </summary>
+        public float Volume
+        {
+            get => this.player.Volume;
+            set
+            {
+                this.player.Volume = value;
+                OnPropertyChanged(nameof(Volume));
+            }
+        }
     }
 }
