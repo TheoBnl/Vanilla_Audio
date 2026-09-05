@@ -90,5 +90,13 @@ namespace ViewModels
             this.player.Play(song);
             OnPropertyChanged(nameof(CurrentSongCover));
         }
+
+        /// <summary>
+        /// Method pausing or resuming the current selected song
+        /// </summary>
+        public void PauseOrResumeCurrentSong()
+        {
+            this.player.PauseOrResume();
+        }
     }
 }
