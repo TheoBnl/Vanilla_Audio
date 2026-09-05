@@ -17,7 +17,7 @@ namespace Business
     {
         private Song? currentSong;
         public bool IsPlaying { get; private set; }
-        public float Volume { get; set; }
+        private float volume;
         private bool isChangingSong;
 
         private WaveOut? outputDevice;
@@ -95,6 +95,26 @@ namespace Business
             if (outputDevice != null && IsPlaying)
             {
                 outputDevice.Pause();
+            }
+        }
+
+        /// <summary>
+        /// Property, adjust the volume, if a audioFileReader is inited, set the song volume of the reader
+        /// </summary>
+        public float Volume
+        {
+            set
+            {
+                this.volume = value;
+                if(this.audioFileReader != null)
+                {
+                    this.audioFileReader.Volume = this.volume;
+                }
+            }
+
+            get
+            {
+                return this.volume;
             }
         }
 
