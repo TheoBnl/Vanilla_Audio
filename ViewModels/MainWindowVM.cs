@@ -76,6 +76,11 @@ namespace ViewModels
         public byte[]? CurrentSongCover => this.player.CurrentSong?.Cover;
 
         /// <summary>
+        /// Property, expose the song name to display it in the mainWindow
+        /// </summary>
+        public string? CurrentSongTitle => this.player.CurrentSong?.Title;
+
+        /// <summary>
         /// Property, expose if a song is currently playing
         /// </summary>
         public bool IsPlaying => this.player.IsPlaying;
@@ -88,7 +93,9 @@ namespace ViewModels
         public void PlaySelectedSong(Song song)
         {
             this.player.Play(song);
+
             OnPropertyChanged(nameof(CurrentSongCover));
+            OnPropertyChanged(nameof(CurrentSongTitle));
         }
 
         /// <summary>
@@ -130,6 +137,29 @@ namespace ViewModels
                 }
 
                 OnPropertyChanged(nameof(CurrentSongCover));
+                OnPropertyChanged(nameof(CurrentSongTitle));
+            }
+        }
+
+        /// <summary>
+        /// Skip to the previous song in the list
+        /// </summary>
+        public void SkipBackward()
+        {
+            if (this.player.CurrentSong != null)
+            {
+                int currentIndex = this.Songs.IndexOf(this.player.CurrentSong);
+                if (currentIndex > 0) //if its not the first song
+                {
+                    this.player.Play(this.Songs[currentIndex - 1]);
+                }
+                else //Play the first song again if current song is the first of the list
+                {
+                    this.player.Play(this.Songs.First());
+                }
+
+                OnPropertyChanged(nameof(CurrentSongCover));
+                OnPropertyChanged(nameof(CurrentSongTitle));
             }
         }
     }
