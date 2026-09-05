@@ -55,5 +55,10 @@ namespace Business
         public void Resume();
 
         public void Randomize();
+
+        /// <summary>
+        /// Loop the current selected Song
+        /// </summary>
+        //public bool Loop { get; set; } TODO
     }
 }

@@ -23,6 +23,7 @@ namespace Business
         private WaveOut? outputDevice;
         private AudioFileReader? audioFileReader;
         private bool closing = false;
+        private bool loop;
 
         public event EventHandler SongEnded;
 
@@ -34,6 +35,7 @@ namespace Business
             this.isChangingSong = false;
             this.outputDevice = null;
             this.audioFileReader = null;
+            this.loop = false;
         }
 
         public Song? CurrentSong => currentSong;
@@ -117,6 +119,12 @@ namespace Business
                 return this.volume;
             }
         }
+
+        //public bool Loop
+        //{
+        //    set => this.loop = value; //TO DO 
+        //    get => this.loop; 
+        //}
 
         public void Randomize()
         {
