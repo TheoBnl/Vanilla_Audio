@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Data;
+using System.Windows.Threading;
 
 namespace ViewModels
 {
@@ -25,6 +26,8 @@ namespace ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        private DispatcherTimer timerRefreshProgressionSlider; //used to refresh song playback duration
+
         /// <summary>
         /// Constructor, dependencies injection of the folderPathManager and songManager
         /// </summary>
@@ -39,6 +42,22 @@ namespace ViewModels
             this.player.SongEnded += OnSongEnded;
 
             this.ReloadSongs();
+
+            timerRefreshProgressionSlider = new DispatcherTimer();
+            timerRefreshProgressionSlider.Tick += TimerRefreshProgressionSlider_Tick;
+            timerRefreshProgressionSlider.Interval = TimeSpan.FromMilliseconds(200);
+            timerRefreshProgressionSlider.Start();
+        }
+
+        /// <summary>
+        /// Method called at each timer's ticks, used to refresh and display the song progression time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TimerRefreshProgressionSlider_Tick(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(CurrentSongProgression));
+            OnPropertyChanged(nameof(CurrentSongProgressionInSeconds));
         }
 
         /// <summary>
@@ -88,6 +107,74 @@ namespace ViewModels
         public string? CurrentSongArtist => this.player.CurrentSong?.Artist;
 
         /// <summary>
+        /// Property, expose the song current time, used to display the progression of the song
+        /// </summary>
+        public string CurrentSongProgression
+        {
+            get
+            {
+                TimeSpan currentSongProgression = this.player.CurrentPosition;
+
+                return $"{currentSongProgression.Minutes}:{currentSongProgression.Seconds:D2}";
+            }
+        }
+
+        /// <summary>
+        /// Property, expose the song current time progression, used by the slider to display the progression or set it by moving it
+        /// </summary>
+        public double CurrentSongProgressionInSeconds
+        {
+            get
+            {
+                TimeSpan currentSongProgression = TimeSpan.Zero;
+                if (this.player.CurrentSong != null)
+                {
+                   currentSongProgression = this.player.CurrentPosition;
+                }
+
+                return currentSongProgression.TotalSeconds;
+            }
+
+            set => this.player.CurrentPosition = TimeSpan.FromSeconds(value);
+        }
+
+        /// <summary>
+        /// Property, expose the current played song total duration
+        /// </summary>
+        public string CurrentSongTotalDuration
+        {
+            get
+            {
+                TimeSpan currentSongTotalDuration = TimeSpan.Zero;
+
+                if (this.player.CurrentSong != null)
+                {
+                    currentSongTotalDuration = player.CurrentSong.Duration;
+                }
+
+                return $"{currentSongTotalDuration.Minutes}:{currentSongTotalDuration.Seconds:D2}";
+            }
+        }
+
+        /// <summary>
+        /// Property, expose the current played song total duration in seconds
+        /// </summary>
+        public double CurrentSongTotalDurationInSeconds
+        {
+            get
+            {
+                TimeSpan currentSongTotalDuration = new TimeSpan(0,0,1); //default value to set the position to 0 and maximum = 1
+
+                if (this.player.CurrentSong != null)
+                {
+                    currentSongTotalDuration = player.CurrentSong.Duration;
+                }
+
+                return currentSongTotalDuration.TotalSeconds;
+            }
+        }
+
+        /// <summary>
         /// Property, expose if a song is currently playing
         /// </summary>
         public bool IsPlaying => this.player.IsPlaying;
@@ -100,6 +187,10 @@ namespace ViewModels
             OnPropertyChanged(nameof(CurrentSongCover));
             OnPropertyChanged(nameof(CurrentSongTitle));
             OnPropertyChanged(nameof(CurrentSongArtist));
+            OnPropertyChanged(nameof(CurrentSongTotalDuration));
+            OnPropertyChanged(nameof(CurrentSongTotalDurationInSeconds));
+            OnPropertyChanged(nameof(CurrentSongProgression));
+            OnPropertyChanged(nameof(CurrentSongProgressionInSeconds));
         }
 
         /// <summary>
