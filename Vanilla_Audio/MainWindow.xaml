@@ -25,7 +25,7 @@
         <!-- Panel du milieu avec boutons Play, Pause ... -->
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <StackPanel>
-                <Slider></Slider>
+                <Slider x:Name="sliderSongProgression" Minimum="0" Maximum="{Binding CurrentSongTotalDurationInSeconds}" Value="{Binding CurrentSongProgressionInSeconds}" Width="388"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Randomize" Width="70"></Button>
@@ -38,6 +38,8 @@
             <Label Content="{Binding Volume}"/>
             <Label Content="{Binding CurrentSongTitle}"/>
             <Label Content="{Binding CurrentSongArtist}"/>
+            <Label Content="{Binding CurrentSongProgression}"/>
+            <Label Content="{Binding CurrentSongTotalDuration}"/>
         </StackPanel>
         
         <!-- Panel avec liste des chansons et boutons settings -->
