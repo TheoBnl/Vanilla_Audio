@@ -12,10 +12,11 @@ namespace Data
     /// </summary>
     public interface ISongManager
     {
-        ///// <summary>
-        ///// Create Song objects based on the files in the song's directory
-        ///// </summary>
-        ///// <returns>List containing all songs</returns>
+        /// <summary>
+        /// Create Song objects based on the files in the song's directory
+        /// </summary>
+        /// <param name="directoryPath">path of the directory containing all songs</param>
+        /// <returns>return a List object containing all the parsed songs</returns>
         public List<Song> CreateSongListFromDirectory(string directoryPath);
     }
 }

@@ -8,20 +8,21 @@ using System.Threading.Tasks;
 namespace Data
 {
     /// <summary>
-    ///Interface permettant de définir les opération du FolderPathManager,
-    ///Il permet de sauvegarder et de charger le path vers le dossier de musique
+    ///Interface defining method of the FolderPathManager
+    ///The Manager can save and load the path of the directory containing audio files
     /// </summary>
     public interface IFolderPathManager
     {
         /// <summary>
-        /// Méthode permettant de charger le path du dossier sauvegardé
+        /// Method used to load the directory path
         /// </summary>
-        /// <returns>chemin vers le dossier contenant les musiques</returns>
+        /// <returns>path of the songs folder</returns>
         public string LoadFolderPath();
 
         /// <summary>
-        /// Méthode permettant de sauvegarder le path du dossier de musiques
+        /// Method used to save the path of the directory containing songs
         /// </summary>
+        /// <param name="songFolder">path of the song folder</param>
         public void SaveFolderPath(string songFolder);
     }
 }
