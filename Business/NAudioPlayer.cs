@@ -66,6 +66,32 @@ namespace Business
             this.isChangingSong = false;
         }
 
+        /// <summary>
+        /// Property to get the position of the currently played song
+        /// </summary>
+        public TimeSpan CurrentPosition
+        {
+            get
+            {
+                TimeSpan currentPos = TimeSpan.Zero;
+                
+                if(this.audioFileReader != null)
+                {
+                    currentPos = this.audioFileReader.CurrentTime;
+                }
+
+                return currentPos;
+            }
+
+            set
+            {
+                if (this.audioFileReader != null)
+                {
+                    this.audioFileReader.CurrentTime = value;
+                }
+            }
+        }
+
         public void PauseOrResume()
         {
             if(this.IsPlaying)
