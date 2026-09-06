@@ -55,10 +55,16 @@ namespace Business
         public void Resume();
 
         public void Randomize();
+        
+        /// <summary>
+        /// Property used to get the current progression of the song or set it if you move the slider
+        /// </summary>
+        public TimeSpan CurrentPosition { get; set; }
 
         /// <summary>
         /// Loop the current selected Song
         /// </summary>
         //public bool Loop { get; set; } TODO
+
     }
 }
